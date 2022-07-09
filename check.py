@@ -26,22 +26,23 @@ def main(args):
     restartNetworkManager()
     # Send restart event to datadog
     sendDatadogEvent(
-        title=EVENT_TITLE, text=f"💥 '{EXPECTED_IP}' got its network-manager restarted", tags=[f"host_ip:'{EXPECTED_IP}'", "status:error"])
+        title=EVENT_TITLE, text=f"💥 '{EXPECTED_IP}' got its network-manager restarted", tags=[
+        f"host_ip:'{EXPECTED_IP}'"], alert_type="error")
     if FLAG_DEBUG:
       print("🐶 Sending restart event to datadog...")
   else:
     if FLAG_DEBUG:
       print ("✅ All is well with the server")
       sendDatadogEvent(title=EVENT_TITLE, text=f"✅ '{EXPECTED_IP}' is working fine", tags=[
-                       f"host_ip:'{EXPECTED_IP}'", "status:info"])
+                       f"host_ip:'{EXPECTED_IP}'"], alert_type="info")
 
 ## ============================================================================
 ## Functions ==================================================================
 ## ============================================================================
 
 ### Sends an event to datadog
-def sendDatadogEvent(title, text, tags):
-  api.Event.create(title=title, text=text, tags=tags)
+def sendDatadogEvent(title, text, tags, alert_type):
+  api.Event.create(title=title, text=text, tags=tags, alert_type=alert_type)
 
 ### Gets an argument's value based on its flag and separator
 def getArgumentValue(args, flag, separator="="):
