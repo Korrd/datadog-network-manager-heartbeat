@@ -24,12 +24,15 @@ def main(args):
   # Send event to datadog
   if not hasExpectedIpAddress(hostIp=EXPECTED_IP):
     restartNetworkManager()
-    sendDatadogEvent(title=EVENT_TITLE, text=f"'{EXPECTED_IP}' got its network-manager restarted", tags=["host:'{EXPECTED_IP}'"])
+    sendDatadogEvent(
+        title=EVENT_TITLE, text=f"💥 '{EXPECTED_IP}' got its network-manager restarted", tags=["host:'{EXPECTED_IP}'"])
     if FLAG_DEBUG:
       print("🐶 Sending restart event to datadog...")
   else:
     if FLAG_DEBUG:
       print ("✅ All is well with the server")
+      sendDatadogEvent(title=EVENT_TITLE, text="✅ '{EXPECTED_IP}' is working fine", tags=[
+                       "host:'{EXPECTED_IP}'"])
 
 ## ============================================================================
 ## Functions ==================================================================
@@ -37,7 +40,6 @@ def main(args):
 
 ### Sends an event to datadog
 def sendDatadogEvent(title, text, tags):
-
   api.Event.create(title=title, text=text, tags=tags)
 
 ### Gets an argument's value based on its flag and separator
