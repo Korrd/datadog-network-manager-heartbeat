@@ -19,20 +19,21 @@ def main(args):
   initialize(**options)
 
   EVENT_TITLE = f"Network manager status at '{EXPECTED_IP}'"
+  
   # Determine if network-manager is disconnected
-
-  # Send event to datadog
   if not hasExpectedIpAddress(hostIp=EXPECTED_IP):
+    # Smash it in the butt®
     restartNetworkManager()
+    # Send restart event to datadog
     sendDatadogEvent(
-        title=EVENT_TITLE, text=f"💥 '{EXPECTED_IP}' got its network-manager restarted", tags=["host:'{EXPECTED_IP}'"])
+        title=EVENT_TITLE, text=f"💥 '{EXPECTED_IP}' got its network-manager restarted", tags=[f"host_ip:'{EXPECTED_IP}'"])
     if FLAG_DEBUG:
       print("🐶 Sending restart event to datadog...")
   else:
     if FLAG_DEBUG:
       print ("✅ All is well with the server")
-      sendDatadogEvent(title=EVENT_TITLE, text="✅ '{EXPECTED_IP}' is working fine", tags=[
-                       "host:'{EXPECTED_IP}'"])
+      sendDatadogEvent(title=EVENT_TITLE, text=f"✅ '{EXPECTED_IP}' is working fine", tags=[
+                       f"host_ip:'{EXPECTED_IP}'"])
 
 ## ============================================================================
 ## Functions ==================================================================
