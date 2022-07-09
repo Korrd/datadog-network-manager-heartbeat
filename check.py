@@ -64,7 +64,7 @@ def hasExpectedIpAddress(hostIp):
 def restartNetworkManager():
   if FLAG_DEBUG:
     print("❌ Restarting network-manager...")
-  command = "service restart network-manager"   # might be wlan0
+  command = "service network-manager restart"
   proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 
 ## ============================================================================
