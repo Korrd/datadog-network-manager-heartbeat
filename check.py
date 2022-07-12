@@ -29,7 +29,7 @@ def main(args):
         title=EVENT_TITLE, text=f"💥 '{EXPECTED_IP}' got its network-manager restarted", tags=[
         f"host_ip:'{EXPECTED_IP}'"], alert_type="error")
     if FLAG_DEBUG:
-      print("🐶 Sending restart event to datadog...")
+      print("🐶 Sending restart event to datadog!")
   else:
     if FLAG_DEBUG:
       print ("✅ All is well with the server")
